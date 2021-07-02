@@ -68,6 +68,11 @@ export default class CollectionReference {
     return new Query(this._data, this).orderBy(...args);
   }
 
+  select(...args) {
+    // doesn't really filter fields
+    return new Query(this._data, this);
+  }
+
   startAfter(...args) {
     return new Query(this._data, this).startAfter(...args);
   }

@@ -121,6 +121,11 @@ export default class Query {
     return this;
   }
 
+  select() {
+    // basically a noop, doesn't really filter
+    return this;
+  }
+
   startAfter(value) {
     const order = this._getOrder();
 
