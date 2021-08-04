@@ -1298,6 +1298,21 @@ QUnit.module('Unit | mock-cloud-firestore', (hooks) => {
         assert.equal(snapshot.docs[0].id, 'user_a');
         assert.equal(snapshot.docs[1].id, 'user_b');
       });
+
+      QUnit.test('should be applied after orderBy/startAfter/where', async (assert) => {
+        assert.expect(2);
+
+        // Arrange
+        const db = mockFirebase.firestore();
+
+        // Act
+        const snapshot = await db.collection('users').limit(2).orderBy('age').startAfter(15)
+          .get();
+
+        // Assert
+        assert.equal(snapshot.docs.length, 1);
+        assert.equal(snapshot.docs[0].id, 'user_c');
+      });
     });
 
     QUnit.module('function: onSnapshot', () => {
