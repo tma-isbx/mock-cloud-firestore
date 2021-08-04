@@ -298,6 +298,21 @@ QUnit.module('Unit | mock-cloud-firestore', (hooks) => {
       });
     });
 
+    QUnit.module('function: select', () => {
+      QUnit.test('should return an instance of Query', (assert) => {
+        assert.expect(1);
+
+        // Arrange
+        const db = mockFirebase.firestore();
+
+        // Act
+        const result = db.collection('users').select('property');
+
+        // Assert
+        assert.ok(result instanceof Query);
+      });
+    });
+
     QUnit.module('function: startAfter', () => {
       QUnit.test('should return an instance of Query', (assert) => {
         assert.expect(1);
