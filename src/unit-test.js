@@ -1236,6 +1236,21 @@ QUnit.module('Unit | mock-cloud-firestore', (hooks) => {
         assert.equal(snapshot.docs[1].id, 'user_a');
       });
 
+      QUnit.test('should return documents satisfying the query - should invert if orderBy desc', async (assert) => {
+        assert.expect(3);
+
+        // Arrange
+        const db = mockFirebase.firestore();
+
+        // Act
+        const snapshot = await db.collection('users').orderBy('age', 'desc').endAt(15).get();
+
+        // Assert
+        assert.equal(snapshot.docs.length, 2);
+        assert.equal(snapshot.docs[0].id, 'user_c');
+        assert.equal(snapshot.docs[1].id, 'user_a');
+      });
+
       QUnit.test('should error when not doing orderBy()', async (assert) => {
         assert.expect(1);
 
@@ -1265,6 +1280,20 @@ QUnit.module('Unit | mock-cloud-firestore', (hooks) => {
         // Assert
         assert.equal(snapshot.docs.length, 1);
         assert.equal(snapshot.docs[0].id, 'user_b');
+      });
+
+      QUnit.test('should return documents satisfying the query - should invert if orderBy desc', async (assert) => {
+        assert.expect(2);
+
+        // Arrange
+        const db = mockFirebase.firestore();
+
+        // Act
+        const snapshot = await db.collection('users').orderBy('age', 'desc').endBefore(15).get();
+
+        // Assert
+        assert.equal(snapshot.docs.length, 1);
+        assert.equal(snapshot.docs[0].id, 'user_c');
       });
 
       QUnit.test('should error when not doing orderBy()', async (assert) => {
@@ -1430,6 +1459,20 @@ QUnit.module('Unit | mock-cloud-firestore', (hooks) => {
         assert.equal(snapshot.docs[0].id, 'user_c');
       });
 
+      QUnit.test('should return documents satisfying the query - should invert if orderBy desc', async (assert) => {
+        assert.expect(2);
+
+        // Arrange
+        const db = mockFirebase.firestore();
+
+        // Act
+        const snapshot = await db.collection('users').orderBy('age', 'desc').startAfter(15).get();
+
+        // Assert
+        assert.equal(snapshot.docs.length, 1);
+        assert.equal(snapshot.docs[0].id, 'user_b');
+      });
+
       QUnit.test('should error when not doing orderBy()', async (assert) => {
         assert.expect(1);
 
@@ -1460,6 +1503,21 @@ QUnit.module('Unit | mock-cloud-firestore', (hooks) => {
         assert.equal(snapshot.docs.length, 2);
         assert.equal(snapshot.docs[0].id, 'user_a');
         assert.equal(snapshot.docs[1].id, 'user_c');
+      });
+
+      QUnit.test('should return documents satisfying the query - should invert if orderBy desc', async (assert) => {
+        assert.expect(3);
+
+        // Arrange
+        const db = mockFirebase.firestore();
+
+        // Act
+        const snapshot = await db.collection('users').orderBy('age', 'desc').startAt(15).get();
+
+        // Assert
+        assert.equal(snapshot.docs.length, 2);
+        assert.equal(snapshot.docs[0].id, 'user_a');
+        assert.equal(snapshot.docs[1].id, 'user_b');
       });
 
       QUnit.test('should error when not doing orderBy()', async (assert) => {
