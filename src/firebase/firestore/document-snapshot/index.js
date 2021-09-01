@@ -1,3 +1,5 @@
+import cloneDeep from 'lodash.clonedeep';
+
 export default class DocumentSnapshot {
   constructor(id, data, ref) {
     this._id = id;
@@ -43,7 +45,7 @@ export default class DocumentSnapshot {
   }
 
   _getData() {
-    const data = { ...this._data };
+    const data = cloneDeep(this._data);
 
     for (const key of Object.keys(data)) {
       if (typeof data[key] === 'string' && data[key].startsWith('__ref__:')) {
