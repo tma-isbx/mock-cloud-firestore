@@ -1,6 +1,13 @@
 import sinon from 'sinon';
 
-import firebase from 'firebase';
+import {
+  arrayRemove,
+  arrayUnion,
+  deleteField,
+  increment,
+  serverTimestamp,
+} from 'firebase/firestore';
+
 import CollectionReference from './firebase/firestore/collection-reference';
 import DocumentReference from './firebase/firestore/document-reference';
 import DocumentSnapshot from './firebase/firestore/document-snapshot';
@@ -586,9 +593,9 @@ QUnit.module('Unit | mock-cloud-firestore', (hooks) => {
           age: null,
           name: 'user_a',
           dad: db.collection('users').doc('user_b'),
-          modifiedOn: firebase.firestore.FieldValue.serverTimestamp(),
-          pinnedBooks: firebase.firestore.FieldValue.arrayUnion('book_100'),
-          pinnedFoods: firebase.firestore.FieldValue.arrayRemove('food_1'),
+          modifiedOn: serverTimestamp(),
+          pinnedBooks: arrayUnion('book_100'),
+          pinnedFoods: arrayRemove('food_1'),
         });
 
         // Assert
@@ -616,12 +623,12 @@ QUnit.module('Unit | mock-cloud-firestore', (hooks) => {
         await ref.set({
           'address.home': 'Seattle',
           address: { home: 'Seattle' },
-          name: firebase.firestore.FieldValue.delete(),
+          name: deleteField(),
           dad: db.collection('users').doc('user_b'),
-          modifiedOn: firebase.firestore.FieldValue.serverTimestamp(),
-          activeYears: firebase.firestore.FieldValue.increment(-1),
-          pinnedBooks: firebase.firestore.FieldValue.arrayUnion('book_100'),
-          pinnedFoods: firebase.firestore.FieldValue.arrayRemove('food_1'),
+          modifiedOn: serverTimestamp(),
+          activeYears: increment(-1),
+          pinnedBooks: arrayUnion('book_100'),
+          pinnedFoods: arrayRemove('food_1'),
         }, { merge: true });
 
         // Assert
@@ -655,14 +662,14 @@ QUnit.module('Unit | mock-cloud-firestore', (hooks) => {
         await ref.update({
           address: { temp: 'Seattle' },
           'address.work': 'Bay Area',
-          'address.home': firebase.firestore.FieldValue.delete(),
+          'address.home': deleteField(),
           'contact.mobile.personal': 67890,
-          age: firebase.firestore.FieldValue.delete(),
+          age: deleteField(),
           dad: db.collection('users').doc('user_b'),
-          activeYears: firebase.firestore.FieldValue.increment(1),
-          modifiedOn: firebase.firestore.FieldValue.serverTimestamp(),
-          pinnedBooks: firebase.firestore.FieldValue.arrayUnion('book_100'),
-          pinnedFoods: firebase.firestore.FieldValue.arrayRemove('food_1'),
+          activeYears: increment(1),
+          modifiedOn: serverTimestamp(),
+          pinnedBooks: arrayUnion('book_100'),
+          pinnedFoods: arrayRemove('food_1'),
           name: 'user_a',
         });
 
@@ -707,7 +714,7 @@ QUnit.module('Unit | mock-cloud-firestore', (hooks) => {
 
         // Act
         await ref.update({
-          nonExistentField: firebase.firestore.FieldValue.increment(1),
+          nonExistentField: increment(1),
         });
 
         // Assert

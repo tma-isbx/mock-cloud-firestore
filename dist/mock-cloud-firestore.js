@@ -1979,7 +1979,7 @@
         _methodName: methodName
       } = value;
 
-      if (methodName === 'FieldValue.delete') {
+      if (methodName === 'deleteField') {
         if (option.type === 'add' || option.type === 'set:merge-false') {
           throw new Error(`Function DocumentReference.set() called with invalid data. FieldValue.delete() cannot be used with set() unless you pass {merge:true} (found in field ${option.field})`);
         }
@@ -1989,7 +1989,7 @@
         }
       }
 
-      if (methodName === 'FieldValue.increment' && option.type === 'set:merge-false') {
+      if (methodName === 'increment' && option.type === 'set:merge-false') {
         throw new Error(`Function DocumentReference.set() called with invalid data. FieldValue.increment() cannot be used with set() unless you pass {merge:true} (found in field ${option.field})`);
       }
 
@@ -2038,19 +2038,19 @@
       _methodName: methodName
     } = newValue;
 
-    if (methodName === 'FieldValue.serverTimestamp') {
+    if (methodName === 'serverTimestamp') {
       return new Date();
     }
 
-    if (methodName === 'FieldValue.arrayUnion') {
+    if (methodName === 'arrayUnion') {
       return processArrayUnion(newValue, oldValue);
     }
 
-    if (methodName === 'FieldValue.arrayRemove') {
+    if (methodName === 'arrayRemove') {
       return processArrayRemove(newValue, oldValue);
     }
 
-    if (methodName === 'FieldValue.increment') {
+    if (methodName === 'increment') {
       return processIncrement(newValue, oldValue);
     }
 

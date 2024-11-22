@@ -4,7 +4,7 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  extends: ['airbnb-base', 'rmmmp/base'],
+  extends: ['airbnb-base'],
   env: {
     node: true,
     qunit: true,
@@ -16,5 +16,8 @@ module.exports = {
 
     // FIXME: Ideally this should be turned on
     'import/no-cycle': 'off',
+
+    'no-restricted-syntax': 'off',
+    'import/no-extraneous-dependencies': 'off',
   },
 };

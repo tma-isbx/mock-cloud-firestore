@@ -1,4 +1,9 @@
-import firebase from 'firebase';
+import {
+  arrayUnion,
+  arrayRemove,
+  deleteField,
+  serverTimestamp,
+} from 'firebase/firestore';
 
 import fixtureData from '../test-helpers/fixture-data';
 import parseValue from '.';
@@ -27,7 +32,7 @@ QUnit.module('Unit | Util | parse-value', () => {
 
       try {
         // Arrange
-        const newValue = { foo: firebase.firestore.FieldValue.delete() };
+        const newValue = { foo: deleteField() };
         const oldValue = undefined;
 
         // Act
@@ -43,7 +48,7 @@ QUnit.module('Unit | Util | parse-value', () => {
 
       try {
         // Arrange
-        const newValue = { foo: firebase.firestore.FieldValue.delete() };
+        const newValue = { foo: deleteField() };
         const oldValue = undefined;
 
         // Act
@@ -59,7 +64,7 @@ QUnit.module('Unit | Util | parse-value', () => {
 
       try {
         // Arrange
-        const newValue = { foo: firebase.firestore.FieldValue.delete() };
+        const newValue = { foo: deleteField() };
         const oldValue = undefined;
 
         // Act
@@ -78,7 +83,7 @@ QUnit.module('Unit | Util | parse-value', () => {
         const newValue = {
           foo: [
             {
-              bar: firebase.firestore.FieldValue.serverTimestamp(),
+              bar: serverTimestamp(),
             },
           ],
         };
@@ -167,7 +172,7 @@ QUnit.module('Unit | Util | parse-value', () => {
       assert.expect(1);
 
       // Arrange
-      const newValue = firebase.firestore.FieldValue.serverTimestamp();
+      const newValue = serverTimestamp();
       const oldValue = undefined;
 
       // Act
@@ -181,7 +186,7 @@ QUnit.module('Unit | Util | parse-value', () => {
       assert.expect(1);
 
       // Arrange
-      const newValue = firebase.firestore.FieldValue.arrayUnion('foo', 'bar');
+      const newValue = arrayUnion('foo', 'bar');
       const oldValue = undefined;
 
       // Act
@@ -195,7 +200,7 @@ QUnit.module('Unit | Util | parse-value', () => {
       assert.expect(1);
 
       // Arrange
-      const newValue = firebase.firestore.FieldValue.arrayUnion('foo', 'bar');
+      const newValue = arrayUnion('foo', 'bar');
       const oldValue = ['hello', 'world'];
 
       // Act
@@ -209,7 +214,7 @@ QUnit.module('Unit | Util | parse-value', () => {
       assert.expect(1);
 
       // Arrange
-      const newValue = firebase.firestore.FieldValue.arrayRemove('foo', 'bar');
+      const newValue = arrayRemove('foo', 'bar');
       const oldValue = undefined;
 
       // Act
@@ -223,7 +228,7 @@ QUnit.module('Unit | Util | parse-value', () => {
       assert.expect(1);
 
       // Arrange
-      const newValue = firebase.firestore.FieldValue.arrayRemove('hello', 'world');
+      const newValue = arrayRemove('hello', 'world');
       const oldValue = ['hello', 'world', 'waow'];
 
       // Act
@@ -237,7 +242,7 @@ QUnit.module('Unit | Util | parse-value', () => {
       assert.expect(1);
 
       // Arrange
-      const newValue = firebase.firestore.FieldValue.delete();
+      const newValue = deleteField();
       const oldValue = undefined;
 
       // Act
@@ -254,8 +259,8 @@ QUnit.module('Unit | Util | parse-value', () => {
       const newValue = {
         test1: 'foo',
         test2: {
-          test1a: firebase.firestore.FieldValue.arrayUnion('bar'),
-          test2a: firebase.firestore.FieldValue.arrayUnion('bar'),
+          test1a: arrayUnion('bar'),
+          test2a: arrayUnion('bar'),
         },
       };
       const oldValue = {
@@ -287,8 +292,8 @@ QUnit.module('Unit | Util | parse-value', () => {
       const newValue = {
         test1: 'foo',
         test2: {
-          test1a: firebase.firestore.FieldValue.arrayUnion('bar'),
-          test2a: firebase.firestore.FieldValue.arrayUnion('bar'),
+          test1a: arrayUnion('bar'),
+          test2a: arrayUnion('bar'),
         },
       };
       const oldValue = {
@@ -319,8 +324,8 @@ QUnit.module('Unit | Util | parse-value', () => {
       const newValue = {
         test1: 'foo',
         test2: {
-          test1a: firebase.firestore.FieldValue.arrayUnion('bar'),
-          test2a: firebase.firestore.FieldValue.arrayUnion('bar'),
+          test1a: arrayUnion('bar'),
+          test2a: arrayUnion('bar'),
         },
       };
       const oldValue = {
